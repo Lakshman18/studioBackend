@@ -25,7 +25,6 @@ router.post("/login", async (req, res) => {
 		const token = user.generateAuthToken();
 		res.status(200).send({ data: token, message: "logged in successfully" });
 	} catch (error) {
-        console.log(error)
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
@@ -33,9 +32,15 @@ router.post("/login", async (req, res) => {
 router.post("/getUser/:token", async (req, res) => {
 	try {
 		var decoded = jwt_decode(req.params.token);
-        console.log(decoded)
+
+        const temp = new Object();
+        temp._id = decoded._id
+        temp.email = decoded.email
+        temp.oauthAccessToken = req.params.token
+        temp.isAuthenticated = true  
+
+        res.status(200).send({ data: temp});
 	} catch (error) {
-        console.log(error)
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
