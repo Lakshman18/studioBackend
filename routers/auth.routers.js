@@ -39,7 +39,7 @@ router.post("/getUser/:token", async (req, res) => {
         temp.oauthAccessToken = req.params.token
         temp.isAuthenticated = true  
 
-        res.status(200).send({ data: temp});
+        res.status(200).send(temp);
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
